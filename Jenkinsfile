@@ -4,6 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         sh 'exit 1'
+        bat(script: 'gradle build', returnStatus: true)
       }
     }
     stage('Testing') {
