@@ -3,20 +3,20 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        bat(script: 'gradle build', returnStatus: true)
+        sh 'gradle clean build'
       }
     }
-    stage('test') {
+    stage('msg') {
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-          bat(script: 'gradle test', returnStatus: true)
+          sh 'exit 0'
         }
 
       }
     }
-    stage('message') {
+    stage('test') {
       steps {
-        sh 'exit 0'
+        bat(script: 'gradle test', returnStatus: true)
       }
     }
   }
