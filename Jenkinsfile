@@ -6,9 +6,17 @@ pipeline {
         bat(script: 'gradle build', returnStatus: true)
       }
     }
-    stage('Testing') {
+    stage('test') {
       steps {
-        bat(script: 'gradle test', returnStatus: true)
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          bat(script: 'gradle test', returnStatus: true)
+        }
+
+      }
+    }
+    stage('message') {
+      steps {
+        sh 'exit 0'
       }
     }
   }
